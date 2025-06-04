@@ -1,6 +1,9 @@
 # 投篮强化学习项目
 
 这个项目使用深度Q网络（DQN）算法来训练一个AI代理，没有考虑空气阻力，仅用于算法理解学习如何在2D环境中投篮。代理需要学习选择合适的投篮角度和力度，使篮球能够准确地进入篮筐。
+## 运行结果
+![final_policy](https://github.com/user-attachments/assets/90f0fd60-123b-4a60-97b3-809816ef127c)
+![final_analysis](https://github.com/user-attachments/assets/8fbf3d5b-4e9d-4ade-adc8-1e962b7a4a0d)
 
 ## 项目结构
 
